@@ -68,3 +68,105 @@ Por ejemplo: main.cpp
         return EXIT_SUCCESS;
     }
 
+## Errores.
+En C++ normalmente se tiene dos tipos de errores.
+
+### Errores de compilacion. 
+Se dan normalmente por errores en la sintaxis de un programa.
+
+    std::cout << "Hello World!" << std::endl
+
+Nos desplegaria el siguiente error.
+
+    src/main.cpp: In function 'int main()':
+    src/main.cpp:14:45: error: expected ';' before 'return'
+       14 |     std::cout << "Hello World!" << std::endl
+          |                                             ^
+          |                                             ;
+       15 |     return EXIT_SUCCESS;
+          |     ~~~~~~                                   
+    make[2]: *** [all] Error 1
+    make[1]: *** [start_build] Error 2
+
+
+
+### Errores en tiempo de ejecucion (runtime).
+
+    consteval int get_value()
+    {
+        return (7/0);
+    }
+
+Nos desplegaria warnings como las siguientes:
+
+    src/main.cpp:9:14: error: division by zero [-Werror=div-by-zero]
+        9 |     return (7/0);
+          |             ~^~
+    src/main.cpp:10:1: error: division by zero is not a constant expression [-Werror=invalid-constexpr]
+       10 | }
+          | ^
+
+Al final el programa se detendría.
+
+## Statements 
+Una instruccion (statement) en lenguaje C++ es la unidad basica de un programa.
+
+Cada programa en C++ es una colección de instrucciones organizadas de una forma que nos permite realizar una accion especificada.
+
+Cada instruccion tiene una terminacion con **;**.
+
+Por ejemplo:
+
+    std::cout <<"Hello World!" << std::endl;
+
+Dentro de la carpeta **Exercises** se encuentra el folder **template** que contiene un ejemplo de un programa que imprime en consola ***Hello World***. 
+
+Como práctica de statements podemos ver el ejercicio en el folder Practice000.
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int Num1 = 12; /* Se define una variable de tipo int, con nombre Num1, y se le asigna el valor de 12 */
+        int Num2 = 9;  /* Se define una variable de tipo int, con nombre Num2, y se le asigna el valor de 9 */
+        int Sum = Num1 + Num2; /* Se define una variable de int, con nombre Sum, y se le asigna de Num1 y Num2 */
+        std::cout << "Sum of two numbers is: " << Sum <<std::endl; /* Despliega en consola el reusltado de la suma contenido en la variable Sum */
+        return EXIT_SUCCESS;
+    }
+
+Como se puede ver en la práctica, el objetivo de este programa es hacer la suma de dos números y se tienen las distintas instrucciones para realizarlo.
+
+Dentro del folder **Practice000**, nos movemos a la carpeta **build** y en la consola compilamos el programa con **make all**
+
+    make all
+    Project: Practice000
+    Practice000 build date: 2025-02-11 12:13:52
+
+    Practice000: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice000: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice000: linking...
+    g++-14 obj/main.o -o bin/Practice000
+    Link done!!!
+
+    Practice000 project building done!!!
+
+    Building time: 00:00:00
+
+Ahora solo ejecutamos el programa, usando ./your_executable_path
+
+    ./bin/Practice
+    Sum of two numbers is: 21
+
+## Functions
