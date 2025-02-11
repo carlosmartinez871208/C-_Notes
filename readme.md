@@ -108,7 +108,7 @@ Nos desplegaria warnings como las siguientes:
 
 Al final el programa se detendría.
 
-## Statements 
+## Statements.
 Una instruccion (statement) en lenguaje C++ es la unidad basica de un programa.
 
 Cada programa en C++ es una colección de instrucciones organizadas de una forma que nos permite realizar una accion especificada.
@@ -119,9 +119,11 @@ Por ejemplo:
 
     std::cout <<"Hello World!" << std::endl;
 
+### Práctica.
+
 Dentro de la carpeta **Exercises** se encuentra el folder **template** que contiene un ejemplo de un programa que imprime en consola ***Hello World***. 
 
-Como práctica de statements podemos ver el ejercicio en el folder Practice000.
+Como práctica de statements podemos ver el ejercicio en el folder ***Practice000** que se encuentra dentro del folder ***Exercises***.
 
     #include <iostream>
 
@@ -170,3 +172,113 @@ Ahora solo ejecutamos el programa, usando ./your_executable_path
     Sum of two numbers is: 21
 
 ## Functions
+Una función es un bloque de codigo que realiza alguna operacion o proceso.
+
+Una función opcionalmente puede definir parametros de entrada que permite al proceso que llama a la función pasar argumentos.
+
+Una funcion tambien puede devolver un valor como salida.
+
+Una función debe ser definidad anter de ser usada.
+
+Las funciones son útiles para encapsular operaciones comunes en un solo bloque reutilizable, idealmente con un nombre que describa claramente lo que hace la función.
+
+### Declaración.
+Una declaración de una funcion consta del tipo de valor devuelto, el nombre la función y la lista de parámetro (puede estar vacio), junto con palabras claves opcionales que proporcionan más instrucciones al compilador.
+
+Por ejemplo:
+
+    int Sum (int Num1, int Num2);
+
+### Definición.
+
+Una definición de una función consta de la declaración más el cuerpo de la función, que es todo el codigo entre las llaves.
+
+Por ejemplo:
+
+    int Sum (int Num1, int Num2)
+    {
+        return (Num1 + Num2);
+    }
+
+### Práctica.
+Como se ha manejado en estas notas las funciones contienen instrucciones en un solo bloque.
+
+Una función debe ser invocada o llamada, desde cualquier parte del programa. Los valores que se pasan son los argumentos, cuyos tipos deben ser compatibles con los tipos de los parámetros en la definición de la función.
+
+Por ejemplo, podemos poner la operacion suma en una funcion que nos devuelva el resultado de la suma de dos numeros.
+
+    int Sum (int Num1, int Num2)
+    {
+        return (Num1 + Num2);
+    }
+
+Tambien podemos tener funciones que no devuelvan algun valor.
+
+Por ejemplo, la siguiente funcion recibe un valor como parametro **result** y lo despliega en la consola.
+
+    void printResult (int result)
+    {
+        std::cout << "Sum of two numbers is: " << result <<std::endl;
+    }
+
+El codigo completo quedaría de la siguiente forma:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    /* Sum function declaration */
+    int Sum (int Num1, int Num2);
+
+    /* Display result funcion declaration */
+    void printResult (int result);
+
+    int main (int argc, char** argv)
+    {
+        int result = Sum(12,9);
+        printResult (result); /* Llamada a la funcion printResult con el argumento result que es compatible con parámetro de entrada de la funcion.*/
+        return EXIT_SUCCESS;
+    }
+
+    /* Sum function definition */
+        int Sum (int Num1, int Num2) /* int: nos indica que devolvera un dato tipo int */
+    {
+        return (Num1 + Num2);
+    }
+
+    /* Display sum function definition */
+    void printResult (int result) /* void: nos indica que no va a devolver un valor de retorno */
+    {
+        std::cout << "Sum of two numbers is: " << result <<std::endl;
+    }
+
+Dentro del folder **Practice001**, nos movemos a la carpeta **build** y en la consola compilamos el programa con **make all**.
+
+    make all
+    Project: Practice001
+    Practice001 build date: 2025-02-11 13:20:42
+
+    Practice001: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice001: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice001: linking...
+    g++-14 obj/main.o -o bin/Practice001
+    Link done!!!
+
+    Practice001 project building done!!!
+
+    Building time: 00:00:00
+
+Ahora solo ejecutamos el programa, usando ./your_executable_path
+
+    ./bin/Practice001
+    Sum of two numbers is: 21
