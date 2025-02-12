@@ -282,3 +282,124 @@ Ahora solo ejecutamos el programa, usando ./your_executable_path
 
     ./bin/Practice001
     Sum of two numbers is: 21
+
+## Data input and output.
+
+### Data output.
+**std::cout** Nos sirve para desplegar informacion en la consola.
+
+Por ejemplo:
+    std::cout << "Please enter your name: " << std::endl;
+
+### Data input.
+**std::cin** Nos sirve para obtener datos desde la consola.
+
+Por ejemplo:
+    std::cin >> name;
+
+### Práctica.
+El siguiente código nos permite ingresar valores y desplegarlos en consola.
+
+    #include <cstdlib>
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int age = 0;
+        std::string name = "name";
+        /* Statements to get a name and store it into a string variable */
+        /*
+        ** Use this code to enter full name
+        ** std::cout << "Please enter your name: " << std::endl;
+        ** std::getline(std::cin,name)
+        */
+        std::cout << "Please enter your name: " << std::endl;
+        std::cin >> name;
+        /* Statements to get age and store it  into a int variable */
+        std::cout << "Please enter you age: " << std::endl;
+        std::cin >> age;
+        /* Statement to show name and age */
+        std::cout << "Name: " << name << ", Age: " << age << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Esto nos deplegaria un resultado similar al siguiente:
+
+    Please enter your name: 
+    Carlos
+    Please enter you age: 
+    Name: Carlos, Age: 37
+
+Pero que pasa si agregamos nombre y apellido en la primera entrada.
+
+    Please enter your name: 
+    Carlos Martinez
+    Please enter you age: 
+    Name: Carlos, Age: 0
+
+Nos manda una edad erronea (0)
+
+Para corregir eso usamos el siguiente código.
+
+    #include <cstdlib>
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int age = 0;
+        std::string name = "name";
+        /* Statements to get a name and store it into a string variable */
+        std::cout << "Please enter your name: " << std::endl;
+        std::getline(std::cin,name);
+        /* Statements to get age and store it  into a int variable */
+        std::cout << "Please enter you age: " << std::endl;
+        std::cin >> age;
+        /* Statement to show name and age */
+        std::cout << "Name: " << name << ", Age: " << age << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+De esta manera nos acepta la entrada de datos con espacios.
+
+    Please enter your name: 
+    Carlos Martinez
+    Please enter you age: 
+    Name: Carlos, Age: 37
+
+Dentro del folder **Practice002**, nos movemos a la carpeta **build** y en la consola compilamos el programa con **make all**.
+
+    make all
+    Project: Practice002
+    Practice002 build date: 2025-02-11 20:21:53
+
+    Practice002: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice002: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice002: linking...
+    g++-14 obj/main.o -o bin/Practice002
+    Link done!!!
+
+    Practice002 project building done!!!
+
+Ahora solo ejecutamos el programa, usando ./your_executable_path
+
+    ./bin/Practice002
+    Please enter your name: 
+    Carlos Martinez
+    Please enter you age: 
+    37
