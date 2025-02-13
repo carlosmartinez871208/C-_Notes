@@ -403,3 +403,510 @@ Ahora solo ejecutamos el programa, usando ./your_executable_path
     Carlos Martinez
     Please enter you age: 
     37
+
+## Variables and types.
+Dentro de la carpeta Exercises se encuentra el folder **Practice003**, una vez abierto **Practice003** abrimos la carpeta **build**.
+La intencion de esta práctica es ver la representacion numerica en distintos sistemas:
+
+> 1. Decimal: 0 - 9.
+> 2. Octal: 0 - 7.
+> 3. Hexadecimal: 0 - F.
+> 4. Binario: 0 y 1.
+
+    Type Name            Bytes.             Other Names                                Range of Values
+
+    int                  4                  signed                                     -2,147,483,648 to 2,147,483,647
+
+    unsigned int         4                  unsigned                                   0 to 4,294,967,295
+
+    __int8               1                  char                                       -128 to 127
+
+    unsigned __int8      1                  unsigned char                              0 to 255
+
+    __int16              2                  short, short int, signed short int         -32,768 to 32,767
+
+    unsigned __int16     2                  unsigned short, unsigned short int         0 to 65,535
+
+    __int32              4                  signed, signed int, int                    -2,147,483,648 to 2,147,483,647
+
+    unsigned __int32     4                  unsigned, unsigned int                     0 to 4,294,967,295
+
+    __int64              8                  long long, signed long long                -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+
+    unsigned __int64     8                  unsigned long long                         0 to 18,446,744,073,709,551,615
+
+    bool                 1                  none                                       false or true
+
+    char                 1                  none                                       -128 to 127 by default
+                                                                                       0 to 255 when compiled by using /J
+
+    signed char          1                  none                                       -128 to 127
+
+    unsigned char        1                  none                                       0 to 255
+
+    short                2                  short int, signed short int                -32,768 to 32,767
+
+    unsigned short       2                  unsigned short int                         0 to 65,535
+
+    long                 4                  long int, signed long int                  -2,147,483,648 to 2,147,483,647
+
+    unsigned long        4                  unsigned long int                          0 to 4,294,967,295
+
+    long long            8                  none (but equivalent to __int64)           -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+
+    unsigned long long   8                  none (but equivalent to unsigned __int64)  0 to 18,446,744,073,709,551,615
+
+    enum                 varies             none 
+
+    float                4                  none                                       3.4E +/- 38 (seven digits)
+
+    double               8                  none                                       1.7E +/- 308 (fifteen digits)
+
+    long double          same as double     none                              Same as double
+
+    wchar_t              2                  __wchar_t                                  0 to 65,535
+
+Código del programa:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int Num1 = 15;       /* Representacion decimal */
+        int Num2 = 017;      /* Representacion octal */
+        int Num3 = 0xF;      /* Representacion hexadecimal */
+        int Num4 = 0b1111;   /* Representacion binaria */
+    
+        /* Se imprimen cada de una de las variables */
+        std::cout << " Variable Num1 = " << Num1 << std::endl;
+        std::cout << " Variable Num2 = " << Num2 << std::endl;
+        std::cout << " Variable Num3 = " << Num3 << std::endl;
+        std::cout << " Variable Num4 = " << Num4 << std::endl;
+        /* Lo anterior solo imprime 15 en cada linea por que la representacion en memoria es el mismo valor */
+        return EXIT_SUCCESS;
+    }
+
+Compilamos:
+
+    make all
+    Project: Practice003
+    Practice003 build date: 2025-02-12 12:33:29
+
+    Practice003: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice003: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice003: linking...
+    g++-14 obj/main.o -o bin/Practice003
+    Link done!!!
+
+    Practice003 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos:
+
+    ./bin/Practice003 
+     Variable Num1 = 15
+     Variable Num2 = 15
+     Variable Num3 = 15
+     Variable Num4 = 15
+
+### int
+Se trata de un tipo de dato que encarga de almacenar valores enteros.
+
+Tipicamente ocupa 4 bytes o mas en memoria (dependen de la cantidad de bits del procesador).
+
+Si una variable no es inicializada, al momento de carga se le asigna un valor basura.
+
+    int variable;
+
+Sin embargo dependiendo de las banderas de compilacion nos puede desplegar un error al momento de compilacion:
+
+    src/main.cpp: In function 'int main(int, char**)':
+    src/main.cpp:15:41: error: 'Num1' is used uninitialized [-Werror=uninitialized]
+       15 |     std::cout << " Variable Num1 = " << Num1 << std::endl;
+          |                                         ^~~~
+    src/main.cpp:9:9: note: 'Num1' was declared here
+        9 |     int Num1;
+          |         ^~~~
+    cc1plus: all warnings being treated as errors
+
+Se inicializa a cero.
+
+    int variable{};
+
+o
+
+    int variable = 0;
+
+Se inicializa a un valor deseado, por ejemplo: 10.
+
+    int variable{10};
+
+o
+
+    itn variable = 10;
+
+Nos lanzaria un **warning** o **error**. El valor 2,9 represneta un valor double.
+
+    int variable{2.9}
+
+Para ver cuanto espacion en bytes ocupa una variable usamos: **sizeof()**.
+
+    std::cout << "Size of int: " << sizeof(int) << std::endl;
+    std::cout << "Size of variable: " << sizeof(variable) << std::endl;
+
+#### Práctica.
+Nuestro código para int seria el siguiente codigo:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int Num1 = 1;
+        int Num2 {};
+        int Num3 {10};
+        int Num4 {15};
+        int Sum {Num3 + Num4};
+        /* Se imprimen cada de una de las variables */
+        std::cout << " Variable Num1 = " << Num1 << std::endl;
+        std::cout << " Variable Num2 = " << Num2 << std::endl;
+        std::cout << " Variable Num3 = " << Num3 << std::endl;
+        std::cout << " Variable Num4 = " << Num4 << std::endl;
+        std::cout << " Variable Sum = " << Sum << std::endl;
+
+        /* Se imprimen el tamaño de las variables */
+        std::cout << "Size of Num1: " << sizeof(Num1) << std::endl;
+        std::cout << "Size of int type: " << sizeof(int) << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice4, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice4, ingresamos a la carpeta build, dentro de build corremos el comando **make all**:
+
+    make all
+    Project: Practice004
+    Practice004 build date: 2025-02-12 13:51:35
+
+    Practice004: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice004: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice004: linking...
+    g++-14 obj/main.o -o bin/Practice004
+    Link done!!!
+
+    Practice004 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice004 
+     Variable Num1 = 1
+     Variable Num2 = 0
+     Variable Num3 = 10
+     Variable Num4 = 15
+     Variable Sum = 25
+    Size of Num1: 4
+    Size of int type: 4
+
+### int modifiers.
+Los modificadores son instrucciones que nos permiten cambiar el comportamiento de una variable.
+
+#### signed.
+Significa que el valor de la variable tendra tanto signo positivo como negativo.
+
+    signed int Num1 {10}
+    signed int Num2 {-15}
+
+#### unsigned 
+Significa que el valor de la variable sera positivo.
+
+    unsigned int Num1 {10}
+    unsigned int Num2 {-15} /* Will display an error */
+
+Error desplegado:
+
+    src/main.cpp: In function 'int main(int, char**)':
+    src/main.cpp:10:20: error: narrowing conversion of '-15' from 'int' to 'unsigned int' [-Wnarrowing]
+       10 |     unsigned Num2 {-15};
+          |                    ^~
+    make[2]: *** [all] Error 1
+    make[1]: *** [start_build] Error 2
+
+#### Práctica.
+Nuestro código para los modificadores ser el siguiente:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        int Num1 = 1;
+        unsigned Num2 {3};
+        signed Num3 {-10};
+        /* Se imprimen cada de una de las variables */
+        std::cout << " Variable Num1 = " << Num1 << std::endl;
+        std::cout << " Variable Num2 = " << Num2 << std::endl;
+        std::cout << " Variable Num3 = " << Num3 << std::endl;
+
+        /* Se imprimen el tamaño de las variables */
+        std::cout << "Size of Num1: " << sizeof(Num1) << std::endl;
+        std::cout << "Size of int type: " << sizeof(int) << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice5, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice5, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all
+    Project: Practice005
+    Practice005 build date: 2025-02-12 14:54:40
+
+    Practice005: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice005: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice005: linking...
+    g++-14 obj/main.o -o bin/Practice005
+    Link done!!!
+
+    Practice005 project building done!!!
+
+    Building time: 00:00:00
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice005 
+     Variable Num1 = 1
+     Variable Num2 = 3
+     Variable Num3 = -10
+     Size of Num1: 4
+     Size of int type: 4
+
+### Float
+Para números con punto decimal, estos tipos de datos son Floating types.
+> 1. float: tiene 4 bytes y 7 digitos despues del punto decimal.
+> 2. double: tiene 8 bytes y 15 digitos despues del punto decimal (es el usado por default).
+> 3. long double: tiene 12 bytes y es mayor que el double en cuestion de numeros despues del punto decimal.
+
+#### Práctica:
+
+    #include <iomanip>
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        float Num1 {1.12345678901234567890f};
+        double Num2 {1.12345678901234567890};
+        long double Num3 {1.12345678901234567890L};
+        /* Se imprimen cada de una de las variables */
+        std::cout << std::setprecision(20);
+        std::cout << " Variable Num1 = " << Num1 << std::endl;
+        std::cout << " Variable Num2 = " << Num2 << std::endl;
+        std::cout << " Variable Num3 = " << Num3 << std::endl;
+
+        /* Se imprimen el tamaño de las variables */
+        std::cout << "Size of float: " << sizeof(float) << std::endl;
+        std::cout << "Size of double: " << sizeof(double) << std::endl;
+        std::cout << "Size of long double: " << sizeof(long double) << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice6, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice6, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    Project: Practice006
+    Practice006 build date: 2025-02-12 21:31:20
+
+    Practice006: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice006: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice006: linking...
+    g++-14 obj/main.o -o bin/Practice006
+    Link done!!!
+
+    Practice006 project building done!!!
+
+    Building time: 00:00:00
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice006
+     Variable Num1 = 1.1234568357467651367
+     Variable Num2 = 1.1234567890123456912
+     Variable Num3 = 1.1234567890123456912
+    Size of float: 4
+    Size of double: 8
+    Size of long double: 8
+
+### Booleans 
+Son tipos de datos que contienen dos valores true o false.
+
+#### Práctica:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        bool red_light {true};
+        bool green_light {false};
+
+        if (red_light)
+        {
+            std::cout << "Stop!" << std::endl;
+        }
+        else
+        {
+            std::cout << "Go throught!" << std::endl;
+        }
+
+        if (green_light)
+        {
+            std::cout << "Go throught!" << std::endl;
+        }
+        else
+        {
+            std::cout << "Stop!" << std::endl;
+        }
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice7, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice7, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all
+    Project: Practice007
+    Practice007 build date: 2025-02-12 22:08:08
+
+    Practice007: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice007: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice007: linking...
+    g++-14 obj/main.o -o bin/Practice007
+    Link done!!!
+
+    Practice007 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice007 
+    Stop!
+    Stop!
+
+### Caracters and strings.
+Este tipo de datos nos permite manejar caracteres y cadenas de caracteres.
+
+**char** es el tipo de dato usado, tiene 1 byte de tamaño esto significa que tiene 256 caracteres distintos para ser usados.
+
+En el caso de las cadenas estas se manejan como arreglos de caracteres.
+
+Práctica:
+
+    #include <iostream>
+    #include <string>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        char value = 65; /* ASCII character for 'A' */
+        std::string phrase {"Hello"};
+        std::cout << "value: " << value << std::endl;
+        std::cout << "value (int): " << static_cast<int>(value) << std::endl;
+        std::cout << "value: " << phrase << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice8, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice8, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    Project: Practice008
+    Practice008 build date: 2025-02-12 22:21:24
+
+    Practice008: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice008: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice008: linking...
+    g++-14 obj/main.o -o bin/Practice008
+    Link done!!!
+
+    Practice008 project building done!!!
+
+    Building time: 00:00:00
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice008 
+    value: A
+    value (int): 65
+    value: Hello
