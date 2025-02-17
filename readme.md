@@ -910,3 +910,118 @@ Ejecutamos nuestro programa:
     value: A
     value (int): 65
     value: Hello
+
+## Operaciones.
+### Suma.
+Nos permite realizar suma de números usando el operador **+**.
+
+### Resta.
+Nos permite realizar resta de números usando el operador **-**.
+
+### Multiplicación.
+Nos permite realizar multiplicación de números usando el operador **\***.
+
+### División.
+Nos permite realizar división de números usando el operador **/**.
+
+Nos permite obtener el residuo de una división usando el operador **%**.
+
+### Práctica:
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int Sum (int a, int b);
+    int Subtract (int a, int b);
+    int Multiplication (int a, int b);
+    int* Division (int a, int b);
+
+    int main (int argc, char** argv)
+    {
+        int Num1;
+        int Num2;
+        int* Res = nullptr;
+        std::cout << "Ingresa primer numero: " << std::endl;
+        std::cin >> Num1;
+        std::cout << "Ingresa segundo numero: " << std::endl;
+        std::cin >> Num2;
+        std::cout << "El resultado de la suma es: " << Sum (Num1,Num2) << std::endl;
+        std::cout << "El resultado de la resta es: " << Subtract (Num1,Num2) << std::endl;
+        std::cout << "El resultado de la multiplicacion es: " << Multiplication (Num1,Num2) << std::endl;
+        if(Num2 != 0)
+        {
+            Res = Division(Num1, Num2);
+            std::cout << "El resultado de la division es: " << *Res <<std::endl;
+            std::cout << "El residuo de la division es: " << *(Res+1) <<std::endl;
+        }
+        else
+        {
+            std::cout << "Denominador debe ser diferente de 0" << std::endl;
+        }
+        return EXIT_SUCCESS;
+    }
+
+    int Sum (int a, int b)
+    {
+        return (a + b);
+    }
+
+    int Subtract (int a, int b)
+    {
+        return (a - b);
+    }
+
+    int Multiplication (int a, int b)
+    {
+        return (a * b);
+    }
+
+    int* Division (int a, int b)
+    {
+        int* Res = new int;
+        *Res = a/b;
+        *(Res+1) = a%b;
+        return Res;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice9, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice9, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all
+    Project: Practice009
+    Practice009 build date: 2025-02-16 20:23:25
+
+    Practice009: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice009: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice009: linking...
+    g++-14 obj/main.o -o bin/Practice009
+    Link done!!!
+
+    Practice009 project building done!!!
+
+    Building time: 00:00:00
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice009 
+    Ingresa primer numero: 
+    7
+    Ingresa segundo numero: 
+    2
+    El resultado de la suma es: 9
+    El resultado de la resta es: 5
+    El resultado de la multiplicacion es: 14
+    El resultado de la division es: 
+
