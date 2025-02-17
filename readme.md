@@ -596,9 +596,9 @@ Nuestro código para int seria el siguiente codigo:
         return EXIT_SUCCESS;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice4, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice004, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice4, ingresamos a la carpeta build, dentro de build corremos el comando **make all**:
+Dentro de Practice004, ingresamos a la carpeta build, dentro de build corremos el comando **make all**:
 
     make all
     Project: Practice004
@@ -682,9 +682,9 @@ Nuestro código para los modificadores ser el siguiente:
         return EXIT_SUCCESS;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice5, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice005, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice5, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+Dentro de Practice005, ingresamos a la carpeta build, dentro de build corremos el comando make all:
 
     make all
     Project: Practice005
@@ -750,9 +750,9 @@ Para números con punto decimal, estos tipos de datos son Floating types.
         return EXIT_SUCCESS;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice6, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice006, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice6, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+Dentro de Practice006, ingresamos a la carpeta build, dentro de build corremos el comando make all:
 
     Project: Practice006
     Practice006 build date: 2025-02-12 21:31:20
@@ -821,9 +821,9 @@ Son tipos de datos que contienen dos valores true o false.
         return EXIT_SUCCESS;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice7, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice007, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice7, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+Dentro de Practice007, ingresamos a la carpeta build, dentro de build corremos el comando make all:
 
     make all
     Project: Practice007
@@ -879,9 +879,9 @@ Práctica:
         return EXIT_SUCCESS;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice8, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice008, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice8, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+Dentro de Practice008, ingresamos a la carpeta build, dentro de build corremos el comando make all:
 
     Project: Practice008
     Practice008 build date: 2025-02-12 22:21:24
@@ -987,9 +987,9 @@ Nos permite obtener el residuo de una división usando el operador **%**.
         return Res;
     }
 
-Para compilar este ejemplo nos vamos a la carpeta Practice9, que se encuentra dentro del folder Exercises.
+Para compilar este ejemplo nos vamos a la carpeta Practice009, que se encuentra dentro del folder Exercises.
 
-Dentro de Practice9, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+Dentro de Practice009, ingresamos a la carpeta build, dentro de build corremos el comando make all:
 
     make all
     Project: Practice009
@@ -1025,3 +1025,132 @@ Ejecutamos nuestro programa:
     El resultado de la multiplicacion es: 14
     El resultado de la division es: 
 
+## Constantes y literales.
+Las **literales** son elementos de un programa que representan directamente un valor.
+
+Las **constantes** son elemento de un programa que representan directamente un valor que no puede ser modificado.
+
+**constinit** es una variable que debe ser inicializada por una constante o literal al momento de compilación.
+
+Las variables son etiquetas asignadas a alguna ubicación de almacenamiento abstracta que contendrá algun valor en ella.
+
+Las literales, por otro lado, son solo una notación utilizada para representar un valor fijo en la sintaxis del lenguaje de programación.
+
+Por ejemplo:
+
+    const int answer = 42;      /* constant integer literal */
+    double d = sin(108.87);     /* floating point literal passed to sin function */
+    bool b = true;              /* boolean literal */
+    MyClass* mc = nullptr;      /* pointer literal */
+
+### Constant expressions.
+Estas definen una expresión que puede ser evaluado al momento de compilación.
+
+Por ejemplo:
+
+    constexpr int goals {3};
+    constexpr double Pi {3.14159};
+
+### static_assert.
+Realiza un chequeo de algunas condiciones en tiempo de compilación.
+Si el chequeo falla el programa no esta bien estructurado y se puede generar un mensaje de error de diagnostico.
+
+Sintaxis:
+
+    static_assert( bool-constexpr , unevaluated-string );
+    static_assert( bool-constexpr );
+    static_assert( bool-constexpr , constant-expression );
+
+Por ejemplo:
+
+    static_assert(03301 == 1729); /* since C++17 the message string is optional */
+
+### constinit.
+Esta expresión nos indica que la variable debe ser inicializada en tiempo de compilacion.
+
+Solo se puede aplicar a variables con static o thread (fuera del scope de main).
+
+Solo debe ser inicializado con **conts** o **literales**.
+
+**const** y **constinit** se pueden combinar pero, **const** y **constexpr** no pueden ser combinadas en alguna expresión.
+
+**constinit** no implica que la variable sea tipo **const** solo le dice al compilador que inicialice al momento de compilación.
+
+Ejemplos:
+
+    constinit int age = 37;
+    const constinit double weight (80.456);
+
+### Práctica.
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    /* constinit */
+    constinit int age = 37;
+    const constinit double weight (80.456);
+
+    int main (int argc, char** argv)
+    {
+        /* Static assert */
+        static_assert(03301 == 1729);
+
+        /* Literales */
+        const int answer = 42;      /* constant integer literal */
+        double d = 108.87;     /* floating point literal passed to sin function */
+        bool b = true;              /* boolean literal */
+
+        /* Constant expressions */
+        constexpr int goals {3};
+        constexpr double Pi {3.14159};
+
+        std::cout << "const int literal: " << answer << std::endl;
+        std::cout << "double literal: " << d << std::endl;
+        std::cout << "boolean literal: " << b << std::endl;
+        std::cout << "int constant expression: " << goals << std::endl;
+        std::cout << "double constant expression: " << Pi << std::endl;
+        std::cout << "int constinit: " << age << std::endl;
+        std::cout << "double const constinit: " << weight << std::endl;
+
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice010, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice010, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all
+    Project: Practice010
+    Practice010 build date: 2025-02-17 13:34:37
+
+    Practice010: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    Practice010: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    ompilation done!!!
+
+    Practice010: linking...
+    g++-14 obj/main.o -o bin/Practice010
+    Link done!!!
+
+    Practice010 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice010 
+    const int literal: 42
+    double literal: 108.87
+    boolean literal: 1
+    int constant expression: 3
+    double constant expression: 3.14159
+    int constinit: 37
+    double const constinit: 80.456
