@@ -1154,3 +1154,126 @@ Ejecutamos nuestro programa:
     double constant expression: 3.14159
     int constinit: 37
     double const constinit: 80.456
+
+## Data Conversions, overflow & underflow.
+### Implicit data conversions.
+Normalmente el compilador realiza una conversión implícita, cuando se tienen diferentes tipos en una expresión.
+
+Las conversiones normalmente son hechas del tipo mas chico al mas grande.
+
+Por ejemplo, int es transformado en double antes de que la expresión sea evaluada.
+
+    double price {45.6};
+    int units {10};
+    double total_price = price * units;
+
+**narrowing convertion** es de la forma siguiente, y es convertida a int antes de ser asignada:
+
+    int x;
+    double y {45.44};
+    x=y;
+
+ ### Explicit data conversions.
+Estas conversiones se hacen a través de indicar explícitamente la conversión al compilador.
+
+Por ejemplo:
+
+    double x {12.5};
+    double y {34.6};
+    int sum;
+    sum = static_cast<int> (x+y);
+
+### Overflow & Underflow
+**Overflow** se da cuando el resultado de una operación es mayor al limite superior del tipo de dato, esto significa que por arriba de ese limite se reinicia al limite inferior y continua el conteo.
+
+    unsigned char var0 {55};
+    unsigned char var1 {130};
+    unsigned char var2 {131};
+    var0 = var1 + var2; /* La suma deberia ser 261, pero var0 = 5 */
+
+**Underflow** se da cuando el resultado de una operación es menor al limite inferior del tipo de dato, esto significa que por debajo de ese limite se reinicia al limite superior y continua el conteo.
+
+    unsigned char var0 {55};
+    unsigned char var1 {130};
+    unsigned char var2 {131};
+    var0 = var1 - var2; /* La suma deberia ser -1, pero var0 = 255 */
+
+### Práctica.
+
+    #include <iostream>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        unsigned char var0 {55};
+        unsigned char var1 {130};
+        unsigned char var2 {131};
+        int x;
+        int units {10};
+        int sum;
+        double y {45.44};
+        double price {45.6};
+        double m {12.5};
+        double n {34.6};
+
+        * Implicit convertion */
+        double total_price = price * units;
+        std::cout << " Precio total:  " << total_price << std::endl;
+
+        /* Implicit narrowing convertion */
+        x = y;
+        std::cout << " El valor de x: " << x << std::endl;
+
+        /* Explicit convertion */
+        sum = static_cast<int> (m+n);
+        std::cout << " El valor de sum: " << sum << std::endl;
+
+        /* Overflow */
+        var0 = var1 + var2;
+        std::cout << " El valor de var0: " << static_cast<int>(var0) << std::endl;
+
+        /* Underflow */
+        var0 = var1 - var2;
+        std::cout << " El valor de var0: " << static_cast<int>(var0) << std::endl;
+
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice011, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice011, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all         
+    Project: Practice011
+    Practice011 build date: 2025-02-18 13:39:19
+
+    Practice011: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    bj/ succesfully created!!!
+
+    Practice011: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice011: linking...
+    g++-14 obj/main.o -o bin/Practice011
+    Link done!!!
+
+    Practice011 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice011
+     Precio total:  456
+     El valor de x: 45
+     El valor de sum: 47
+     El valor de var0: 5
+     El valor de var0: 255
+
