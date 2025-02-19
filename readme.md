@@ -1277,3 +1277,219 @@ Ejecutamos nuestro programa:
      El valor de var0: 5
      El valor de var0: 255
 
+## Bitwise operators.
+Son operadores para el manejo de datos a nivel bit.
+
+Para desplegar los valores en un formato especifico usamos lo siguiente.
+
+    unsigned short int data {0b11111110};
+    std::cout << "data (dec): " << std::dec << data << std::endl;
+    std::cout << "data (hex): " << std::hex << std::showbase << data << std::endl;
+    std::cout << "data (bin): " << std::bitset<16>(data) << std::endl;
+
+### Shift operator.
+Nos permite recorrer hacia la izquierda o derecha posiciones determinadas.
+ 
+**<<** recorrer a la izquierda.
+
+**>>** recorrer a la derecha.
+
+    unsigned short int value {0xff0u};
+    value = static_cast<unsigned short int>(value << 1) ; /* Corrimiento a la izquierda. */
+    value = static_cast<unsigned short int>(value >> 1); /* Corrimiento a la derecha. */
+
+### AND
+Nos permite hacer una operacion AND entre valores.
+
+    const int COLUMN_WIDTH {20};
+    unsigned char value1 {0x03};
+    unsigned char value2 {0x05};
+    std::cout << std::setw(COLUMN_WIDTH) << "value1 & value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 & value2) << std::endl;
+
+### OR
+Nos permite hacer una operacion OR entre valores.
+
+    const int COLUMN_WIDTH {20};
+    unsigned char value1 {0x03};
+    unsigned char value2 {0x05};
+    std::cout << std::setw(COLUMN_WIDTH) << "value1 | value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 | value2) << std::endl;
+
+### NOT
+Nos permite hacer una operacion NOT a un valor.
+
+    const int COLUMN_WIDTH {20};
+    unsigned char value1 {0x03};
+    unsigned char value2 {0x05};
+    std::cout << std::setw(COLUMN_WIDTH) << "~value1: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(~value1) << std::endl;
+    std::cout << std::setw(COLUMN_WIDTH) << "~value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>( ~value2) << std::endl;
+
+### XOR
+Nos permite hacer una operacion XOR entre valores.
+
+    const int COLUMN_WIDTH {20};
+    unsigned char value1 {0x03};
+    unsigned char value2 {0x05};
+    std::cout << std::setw(COLUMN_WIDTH) << "value1 ^ value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 ^ value2) << std::endl;
+
+### Máscaras.
+Las máscaras son usadas para filtrar valores o en este caso que posiciones de bits queremos procesar.
+
+Por ejemplo, si queremos que los bits 3 y 4 sean procesados, aplicariamos la siguiente mascara 0b00011000 y despues un corrimiento de 3 posiciones a la derecha para determinar el valor en decimal.
+
+    unsigned const char MASK {0b00011000};
+    unsigned char value {0b11110000};
+    value &= MASK;
+
+### Ejemplo:
+
+    #include <iomanip>
+    #include <iostream>
+    #include <bitset>
+
+    #ifndef EXIT_SUCCESS
+     #define EXIT_SUCCESS 0u
+    #endif
+
+    int main (int argc, char** argv)
+    {
+        unsigned short int data {0b11111110};
+        std::cout << " Display value of data: " << std::endl;
+        std::cout << "data (dec): " << std::dec << data << std::endl;
+        std::cout << "data (hex): " << std::hex << std::showbase << data << std::endl;
+        std::cout << "data (bin): " << std::bitset<16>(data) << std::endl;
+        std::cout << std::endl;
+
+        /* Shift operators */
+        unsigned short int value {0xff0u};
+        std::cout << " Shift operators: " << std::endl;
+        std::cout << "Size of short int: " << sizeof(short int) << std::endl;
+        std::cout << "value: " << std::bitset<16>(value) << ", dec: " << value << std::endl;
+        value = static_cast<unsigned short int>(value << 1);
+        std::cout << "value: " << std::bitset<16>(value) << ", dec: " << value << std::endl;
+        value = static_cast<unsigned short int>(value >> 2);
+        std::cout << "value: " << std::bitset<16>(value) << ", dec: " << value << std::endl;
+        std::cout << std::endl;
+
+        /* AND */
+        const int COLUMN_WIDTH {20};
+        unsigned char value1 {0x03};
+        unsigned char value2 {0x05};
+        std::cout << " AND bitwise: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "value1: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1) << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value2) << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "value1 & value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 & value2) << std::endl;
+        std::cout << std::endl;
+        /* OR */
+        std::cout << " OR bitwise: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "value1 | value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 | value2) << std::endl;
+        std::cout << std::endl;
+        /* NOT */
+        std::cout << " NOT bitwise: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "~value1: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(~value1) << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "~value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>( ~value2) << std::endl;
+        std::cout << std::endl;
+        /* XOR */
+        std::cout << " XOR bitwise: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "value1 ^ value2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value1 ^ value2) << std::endl;
+        std::cout << std::endl;
+
+        /* Compound shift operator */
+        unsigned char sandbox {0b00110100};
+        std::cout << " Compound bitwise: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "Initial value: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl;
+        sandbox <<= 2; /* Shift left */
+        std::cout << std::setw(COLUMN_WIDTH) << "Shift left 2: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl; 
+        sandbox >>= 4; /* Shift right*/
+        std::cout << std::setw(COLUMN_WIDTH) << "Shift right 4: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl; 
+        sandbox &= 0b00111100; /* AND compound */
+        std::cout << std::setw(COLUMN_WIDTH) << "AND 0b00111100: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl; 
+        sandbox |= 0b00001111; /* OR compound */
+        std::cout << std::setw(COLUMN_WIDTH) << "OR 0b00001111: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl;
+        sandbox = ~sandbox; /* NOT */
+        td::cout << std::setw(COLUMN_WIDTH) << "NOT: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl;
+        sandbox ^= 0b00111100; /* XOR compound */
+        std::cout << std::setw(COLUMN_WIDTH) << "XOR 0b00111100: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(sandbox) << std::endl; 
+
+        /* Máscaras */
+        unsigned const char MASK {0b00011000};
+        unsigned char value3 {0b11110000};
+        std::cout << " Mask: " << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "Mask: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(MASK) << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "Value: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value3) << std::endl;
+        value3 &= MASK;
+        std::cout << std::setw(COLUMN_WIDTH) << "Masked value: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value3) << std::endl;
+        value3 >>= 3;
+        std::cout << std::setw(COLUMN_WIDTH) << "Masked value: " << std::setw(COLUMN_WIDTH) << std::bitset<8>(value3) << std::endl;
+        std::cout << std::setw(COLUMN_WIDTH) << "Decimal: " << std::setw(COLUMN_WIDTH) << static_cast<int>(value3) << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+Para compilar este ejemplo nos vamos a la carpeta Practice012, que se encuentra dentro del folder Exercises.
+
+Dentro de Practice012, ingresamos a la carpeta build, dentro de build corremos el comando make all:
+
+    make all
+    Project: Practice012
+    Practice012 build date: 2025-02-19 14:39:54
+
+    Practice012: building started...
+    Creating directory: bin
+    Creating directory: obj
+    bin/ succesfully created!!!
+    obj/ succesfully created!!!
+
+    ractice012: compiling...
+    g++-14 -Wall -Werror -Wpedantic -Wno-unused-variable -Wno-unused-function -o0 -std=c++20  -c src/main.cpp -o  ../../build/obj/main.o
+    Compilation done!!!
+
+    Practice012: linking...
+    g++-14 obj/main.o -o bin/Practice012
+    Link done!!!
+
+    Practice012 project building done!!!
+
+    Building time: 00:00:01
+
+Ejecutamos nuestro programa:
+
+    ./bin/Practice012
+     Display value of data: 
+    data (dec): 254
+    data (hex): 0xfe
+    data (bin): 0000000011111110
+
+     Shift operators: 
+    Size of short int: 0x2
+    value: 0000111111110000, dec: 0xff0
+    value: 0001111111100000, dec: 0x1fe0
+    value: 0000011111111000, dec: 0x7f8
+
+     AND bitwise: 
+                value1:             00000011
+                value2:             00000101
+       value1 & value2:             00000001
+
+     OR bitwise: 
+       value1 | value2:             00000111
+
+     NOT bitwise: 
+               ~value1:             11111100
+               ~value2:             11111010
+
+     XOR bitwise: 
+       value1 ^ value2:             00000110
+
+     Compound bitwise: 
+         Initial value:             00110100
+          Shift left 2:             11010000
+         Shift right 4:             00001101
+        AND 0b00111100:             00001100
+         OR 0b00001111:             00001111
+                   NOT:             11110000
+        XOR 0b00111100:             11001100
+     Mask: 
+                  Mask:             00011000
+                 Value:             11110000
+          Masked value:             00010000
+          Masked value:             00000010
+               Decimal:                  0x2
